@@ -6,47 +6,38 @@ const app = document.getElementById('app');
 
 app.innerHTML = `
   <h1>Questionner</h1>
+  <div class="content"></div>
   <button class="questionner">Start Questionner</button>
-  <table border="1" style=" display: none;">
+  <button class="next" style="display: none;">Next Card</button>`;
+  const startQuestionner = () => {
+    const elemnetHtml = document.querySelector(".content");
+    const totalCards = flashcards.length;
+    const randomIndex = Math.floor(Math.random() * totalCards);
+    const qa = flashcards[randomIndex];
+    elemnetHtml.innerHTML = `
+  
+  
+  <table border="1" >
     <thead>
       <tr>
         <th>Question</th>
         <th>Answer</th>
       </tr>
+      <tr>
+        <td>${qa.question}</td>
+        <td>${qa.answer}</td>
+      </tr>
     </thead>
     <tbody id="tableBody"></tbody>
   </table>
-`;
+`};
 document.querySelector(".questionner").addEventListener("click", () => 
-  { document.querySelector("table").style.display = "block";
+  { 
     startQuestionner(); document.querySelector(".questionner").style.display = "none"; 
-  
-   
+     
 }    
-
-
-
 
 );
 
 
-function startQuestionner() {
-const tableBody = document.getElementById('tableBody');
 
-flashcards.forEach(card => {
-  const row = document.createElement('tr');
-  document.querySelector(".questionner").style.display = "none";
-
-  const questionCell = document.createElement('td');
-  questionCell.textContent = card.question;
-
-  const answerCell = document.createElement('td');
-  answerCell.textContent = card.answer;
-
-  row.appendChild(questionCell);
-  row.appendChild(answerCell);
-
-  tableBody.appendChild(row);
-});
-
-}
