@@ -240,26 +240,6 @@ export const flashcards = [
     answer: "Norme de rédaction de messages de commit facilitant la lecture de l'historique et l'automatisation."
   },
   {
-    question: 'npm run build',
-    answer: 'Commande transformant le code source en fichiers optimisés pour la mise en ligne.'
-  },
-  {
-    question: 'Preview Channel',
-    answer: 'Lien de déploiement temporaire Firebase permettant de tester une fonctionnalité avant sa fusion finale.'
-  },
-  {
-    question: 'Firebase Rollback',
-    answer: 'Action permettant de revenir instantanément à une version précédente du site en cas de bug.'
-  },
-  {
-    question: 'Git tag',
-    answer: "Marqueur immuable dans l'historique Git identifiant une version spécifique de l'application."
-  },
-  {
-    question: 'Licence open-source',
-    answer: '"Document juridique (ex: MIT'
-  },
-  {
     question: 'README.md',
     answer: `"Documentation principale d'un projet expliquant son rôle`
   },
@@ -287,10 +267,7 @@ export const flashcards = [
     question: 'Provider (Context)',
     answer: "Composant qui englobe l'application pour rendre une valeur de contexte accessible à ses descendants."
   },
-  {
-    question: 'Custom Hooks',
-    answer: `"Fonctions JavaScript dont le nom commence par 'use'`
-  },
+  
   {
     question: 'HMR (Vite)',
     answer: 'Mécanisme mettant à jour les modules dans le navigateur sans rechargement complet de la page.'
