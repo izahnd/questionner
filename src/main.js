@@ -5,10 +5,11 @@ import { flashcards } from './flashcards.js'
 const app = document.getElementById('app');
 
 app.innerHTML = `
-  <h1>Questionner</h1>
+  <h1 class="text-3xl font-extrabold underline" >Questionner</h1>
   <div class="content"></div>
   <button class="questionner">Start Questionner</button>
   <button class="next" style="display: none;">Next Card</button>`;
+  
   const startQuestionner = () => {
     const elemnetHtml = document.querySelector(".content");
     const totalCards = flashcards.length;
@@ -31,13 +32,21 @@ app.innerHTML = `
     <tbody id="tableBody"></tbody>
   </table>
 `};
+
 document.querySelector(".questionner").addEventListener("click", () => 
   { 
-    startQuestionner(); document.querySelector(".questionner").style.display = "none"; 
+    startQuestionner();
+    document.querySelector(".next").style.display = "block";
+    document.querySelector(".questionner").style.display = "none";
+
      
 }    
 
 );
 
-
+document.querySelector(".next").addEventListener("click", () =>
+  { 
+    startQuestionner();
+}
+);
 
