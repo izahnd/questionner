@@ -1,12 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
-import { flashcards } from '../flashcards.js';
+import { createContext, useState } from 'react';
+import { flashcards } from '../data/flashcards.js';
+import { getRandomCard } from '../utils/getRandomCard.js';
 
-const FlashcardsContext = createContext(null);
-
-function getRandomCard(cards) {
-  const randomIndex = Math.floor(Math.random() * cards.length);
-  return cards[randomIndex];
-}
+export const FlashcardsContext = createContext(null);
 
 export function FlashcardsProvider({ children }) {
   const [currentCard, setCurrentCard] = useState(null);
@@ -34,14 +30,4 @@ export function FlashcardsProvider({ children }) {
       {children}
     </FlashcardsContext.Provider>
   );
-}
-
-export function useFlashcards() {
-  const context = useContext(FlashcardsContext);
-
-  if (!context) {
-    throw new Error('useFlashcards must be used within FlashcardsProvider');
-  }
-
-  return context;
 }

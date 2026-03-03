@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './style.css';
-import { App } from './App.jsx';
-import { FlashcardsProvider } from './state/FlashcardsContext.jsx';
+import { App } from './app/App.jsx';
+import { AppProviders } from './app/providers.jsx';
+import './styles/global.css';
 
 ReactDOM.createRoot(document.getElementById('app')).render(
   <React.StrictMode>
-    <FlashcardsProvider>
+    <AppProviders>
       <App />
-    </FlashcardsProvider>
+    </AppProviders>
   </React.StrictMode>,
 );
