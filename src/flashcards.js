@@ -1,11 +1,11 @@
 export const flashcards = [
   {
     question: 'Application SaaS',
-    answer: '"Logiciel accessible via le navigateur sans installation locale'
+    answer: 'Logiciel accessible via le navigateur sans installation locale.'
   },
   {
     question: 'VS Code',
-    answer: '"Éditeur de code professionnel extensible'
+    answer: 'Éditeur de code professionnel extensible.'
   },
   {
     question: 'Prettier',
@@ -41,7 +41,7 @@ export const flashcards = [
   },
   {
     question: 'Pull Request (PR)',
-    answer: `"Demande de fusion de modifications d'une branche vers une autre`
+    answer: "Demande de fusion de modifications d'une branche vers une autre."
   },
   {
     question: 'Modélisation UML',
@@ -69,11 +69,11 @@ export const flashcards = [
   },
   {
     question: 'Fonctions fléchées ($=> $)',
-    answer: '"Syntaxe JavaScript concise pour déclarer des fonctions'
+    answer: 'Syntaxe JavaScript concise pour déclarer des fonctions.'
   },
   {
     question: 'Tableaux (Array)',
-    answer: '"Structures de données stockant des listes de valeurs'
+    answer: 'Structures de données stockant des listes de valeurs.'
   },
   {
     question: 'Programmation événementielle',
@@ -109,7 +109,7 @@ export const flashcards = [
   },
   {
     question: 'Responsive Design',
-    answer: `"Conception d'interfaces s'adaptant automatiquement à toutes les tailles d'écrans (mobile`
+    answer: "Conception d'interfaces s'adaptant automatiquement à toutes les tailles d'écran, du mobile au desktop."
   },
   {
     question: 'setTimeout()',
@@ -177,7 +177,7 @@ export const flashcards = [
   },
   {
     question: "Variables d'environnement",
-    answer: '"Paramètres configurables (clés API'
+    answer: "Paramètres configurables comme des clés API, URLs ou options de déploiement."
   },
   {
     question: 'VITE_ préfixe',
@@ -209,7 +209,7 @@ export const flashcards = [
   },
   {
     question: 'Workflow Git professionnel',
-    answer: '"Organisation en branches ($main'
+    answer: 'Organisation en branches pour structurer le développement, les revues et les mises en production.'
   },
   {
     question: 'Hotfix branch',
@@ -241,11 +241,11 @@ export const flashcards = [
   },
   {
     question: 'README.md',
-    answer: `"Documentation principale d'un projet expliquant son rôle`
+    answer: "Documentation principale d'un projet expliquant son rôle, son installation et son utilisation."
   },
   {
     question: 'Mini-documentation',
-    answer: '"Guide court incluant présentation'
+    answer: "Guide court incluant présentation, installation, usage et structure du projet."
   },
   {
     question: 'Prop-Drilling',
@@ -261,7 +261,7 @@ export const flashcards = [
   },
   {
     question: 'Cleanup function',
-    answer: '"Fonction retournée par useEffect pour nettoyer les ressources (timers'
+    answer: 'Fonction retournée par useEffect pour nettoyer les ressources comme les timers ou abonnements.'
   },
   {
     question: 'Provider (Context)',
@@ -286,7 +286,7 @@ export const flashcards = [
   },
   {
     question: 'Dynamic Import',
-    answer: `"Chargement d'un module JavaScript à la demande`
+    answer: "Chargement d'un module JavaScript à la demande, au moment où il devient nécessaire."
   },
   {
     question: 'Web Workers (Vite)',
@@ -298,7 +298,7 @@ export const flashcards = [
   },
   {
     question: 'Data URIs',
-    answer: '"Inlining de petits assets (images'
+    answer: "Inlining de petits assets comme des images directement dans le code ou les styles."
   },
   {
     question: 'Async Chunk Optimization',
@@ -308,10 +308,13 @@ export const flashcards = [
     question: 'Terminal intégré',
     answer: "Fenêtre de commande interne à VS Code permettant d'exécuter des scripts sans quitter l'éditeur."
   },
-  { question: 'Shell', answer: '"Programme (ex: Bash' },
+  {
+    question: 'Shell',
+    answer: 'Programme comme Bash ou PowerShell permettant d’exécuter des commandes dans un terminal.'
+  },
   {
     question: 'Ghost Text',
-    answer: `"Texte grisé suggéré par Copilot dans l'éditeur`
+    answer: "Texte grisé suggéré par Copilot directement dans l'éditeur."
   },
   {
     question: 'Agent Mode (Copilot)',
@@ -327,7 +330,7 @@ export const flashcards = [
   },
   {
     question: 'Context Bloat',
-    answer: `"Accumulation excessive d'informations dans la fenêtre de contexte de l'IA`
+    answer: "Accumulation excessive d'informations dans la fenêtre de contexte de l'IA."
   },
   {
     question: 'Parallel Execution (Subagents)',
@@ -335,7 +338,7 @@ export const flashcards = [
   },
   {
     question: 'Token usage',
-    answer: '"Mesure de la consommation de ressources IA'
+    answer: 'Mesure de la consommation de ressources IA, souvent liée à la taille du contexte et des réponses.'
   },
   {
     question: 'runSubagent tool',
