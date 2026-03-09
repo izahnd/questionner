@@ -7,20 +7,39 @@ export const FlashcardsContext = createContext(null);
 export function FlashcardsProvider({ children }) {
   const [currentCard, setCurrentCard] = useState(null);
   const [hasStarted, setHasStarted] = useState(false);
+  const safeCards = flashcards.filter(
+    (card) =>
+      card &&
+      typeof card.question === 'string' &&
+      card.question.trim() !== '' &&
+      typeof card.answer === 'string' &&
+      card.answer.trim() !== '',
+  );
 
   const startQuestionner = () => {
-    setCurrentCard(getRandomCard(flashcards));
+    if (safeCards.length === 0) {
+      setCurrentCard(null);
+      setHasStarted(false);
+      return;
+    }
+
+    setCurrentCard(getRandomCard(safeCards));
     setHasStarted(true);
   };
 
   const showNextCard = () => {
-    setCurrentCard(getRandomCard(flashcards));
+    if (safeCards.length === 0) {
+      setCurrentCard(null);
+      return;
+    }
+
+    setCurrentCard(getRandomCard(safeCards));
   };
 
   const value = {
     currentCard,
     hasStarted,
-    totalCards: flashcards.length,
+    totalCards: safeCards.length,
     startQuestionner,
     showNextCard,
   };

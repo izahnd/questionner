@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getRandomCard } from '../src/features/flashcards/utils/getRandomCard.js';
+import { flashcards } from '../src/features/flashcards/data/flashcards.js';
 import { FlashcardsEmptyState } from '../src/features/flashcards/components/FlashcardsEmptyState.jsx';
 import { FlashcardsSession } from '../src/features/flashcards/components/FlashcardsSession.jsx';
 
@@ -57,8 +58,36 @@ describe('getRandomCard', () => {
     expect(getRandomCard([onlyCard])).toBe(onlyCard);
   });
 
-  it('returns undefined for empty array', () => {
-    expect(getRandomCard([])).toBeUndefined();
+  it('returns null for empty array', () => {
+    expect(getRandomCard([])).toBeNull();
+  });
+
+  it('returns null for non-array input', () => {
+    expect(getRandomCard(undefined)).toBeNull();
+  });
+});
+
+describe('flashcards dataset invariants', () => {
+  it('contains only valid cards with non-empty question and answer', () => {
+    expect(Array.isArray(flashcards)).toBe(true);
+    expect(flashcards.length).toBeGreaterThan(0);
+
+    for (const card of flashcards) {
+      expect(card).toBeTruthy();
+      expect(typeof card.question).toBe('string');
+      expect(card.question.trim().length).toBeGreaterThan(0);
+      expect(typeof card.answer).toBe('string');
+      expect(card.answer.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('does not contain mojibake markers', () => {
+    const brokenEncodingPattern = /Ã|Â|â€|�/;
+
+    for (const card of flashcards) {
+      expect(card.question).not.toMatch(brokenEncodingPattern);
+      expect(card.answer).not.toMatch(brokenEncodingPattern);
+    }
   });
 });
 
@@ -170,10 +199,10 @@ describe('FlashcardsProvider', () => {
         }),
       };
     });
-    vi.doMock('../../src/features/flashcards/data/flashcards.js', () => ({
+    vi.doMock('../src/features/flashcards/data/flashcards.js', () => ({
       flashcards: sampleCards,
     }));
-    vi.doMock('../../src/features/flashcards/utils/getRandomCard.js', () => ({
+    vi.doMock('../src/features/flashcards/utils/getRandomCard.js', () => ({
       getRandomCard: vi.fn(() => randomCard),
     }));
 
@@ -200,6 +229,48 @@ describe('FlashcardsProvider', () => {
     expect(getRandomCard).toHaveBeenCalledWith(sampleCards);
     expect(setCurrentCard).toHaveBeenCalledWith(randomCard);
   });
+
+  it('handles empty cards without starting session', async () => {
+    const setCurrentCard = vi.fn();
+    const setHasStarted = vi.fn();
+
+    vi.doMock('react', async () => {
+      const actual = await vi.importActual('react');
+      return {
+        ...actual,
+        useState: vi.fn((initialValue) => {
+          if (initialValue === null) {
+            return [null, setCurrentCard];
+          }
+
+          if (initialValue === false) {
+            return [false, setHasStarted];
+          }
+
+          return [initialValue, vi.fn()];
+        }),
+      };
+    });
+    vi.doMock('../src/features/flashcards/data/flashcards.js', () => ({
+      flashcards: [],
+    }));
+    vi.doMock('../src/features/flashcards/utils/getRandomCard.js', () => ({
+      getRandomCard: vi.fn(),
+    }));
+
+    const { FlashcardsProvider } = await import(
+      '../src/features/flashcards/context/FlashcardsContext.jsx'
+    );
+    const tree = FlashcardsProvider({ children: 'child' });
+    const value = tree.props.value;
+
+    value.startQuestionner();
+    expect(setCurrentCard).toHaveBeenCalledWith(null);
+    expect(setHasStarted).toHaveBeenCalledWith(false);
+
+    value.showNextCard();
+    expect(setCurrentCard).toHaveBeenCalledWith(null);
+  });
 });
 
 describe('FlashcardsView', () => {
@@ -212,7 +283,7 @@ describe('FlashcardsView', () => {
     const startQuestionner = vi.fn();
     const showNextCard = vi.fn();
 
-    vi.doMock('../../src/features/flashcards/hooks/useFlashcards.js', () => ({
+    vi.doMock('../src/features/flashcards/hooks/useFlashcards.js', () => ({
       useFlashcards: vi.fn(() => ({
         currentCard: null,
         hasStarted: false,
@@ -239,7 +310,7 @@ describe('FlashcardsView', () => {
     const startQuestionner = vi.fn();
     const showNextCard = vi.fn();
 
-    vi.doMock('../../src/features/flashcards/hooks/useFlashcards.js', () => ({
+    vi.doMock('../src/features/flashcards/hooks/useFlashcards.js', () => ({
       useFlashcards: vi.fn(() => ({
         currentCard: { question: 'Q', answer: 'A' },
         hasStarted: true,
