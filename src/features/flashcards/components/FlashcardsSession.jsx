@@ -1,4 +1,9 @@
 export function FlashcardsSession({ currentCard, totalCards, onNextCard }) {
+  /**
+   * Affiche une session de flashcards avec la carte actuelle, le nombre total de cartes et un
+   *  bouton pour passer à la carte suivante.
+   */
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">

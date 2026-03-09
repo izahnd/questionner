@@ -1,5 +1,9 @@
+/**
+ *  Component affiché en haut de la page des flashcards, présentant le titre et une description de l'application.
+ * @returns JSX.Element 
+ */
 export function FlashcardsHeader() {
-  return (
+   return (
     <header className="space-y-3">
       <p className="text-sm uppercase tracking-[0.35em] text-amber-300">
         Flashcards

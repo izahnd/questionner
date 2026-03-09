@@ -2,6 +2,9 @@ import { useFlashcards } from '../hooks/useFlashcards.js';
 import { FlashcardsEmptyState } from './FlashcardsEmptyState.jsx';
 import { FlashcardsSession } from './FlashcardsSession.jsx';
 
+
+
+
 export function FlashcardsView() {
   const { currentCard, hasStarted, totalCards, startQuestionner, showNextCard } =
     useFlashcards();

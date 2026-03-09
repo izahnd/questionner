@@ -1,4 +1,10 @@
+/**
+ * Component affiché lorsque la liste de cartes est vide. 
+ * @param {*} param0 
+ * 
+ */
 export function FlashcardsEmptyState({ onStart }) {
+ 
   return (
     <div className="flex flex-col items-start gap-5">
       <p className="max-w-xl text-base leading-7 text-stone-300">
