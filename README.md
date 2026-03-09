@@ -3,7 +3,6 @@
 <img src="./photos/screen0.png" alt="Main Screen" width="100%" />
 <img src="./photos/screen1.png" alt="Session Screen" width="100%" />
 
-
 Questionner is a simple flashcards app built with React and Vite.
 
 ## Description
@@ -33,11 +32,13 @@ It is intentionally small, fast, and easy to maintain.
 ## Dependencies
 
 Main:
+
 - `react`
 - `react-dom`
 - `tailwindcss`
 
 Development:
+
 - `vite`
 - `@vitejs/plugin-react`
 - `@tailwindcss/vite`
@@ -157,6 +158,7 @@ npm run test:watch
 ```
 
 Current tests cover:
+
 - utility behavior
 - provider behavior and edge cases
 - session and empty-state interactions
@@ -189,18 +191,18 @@ firebase deploy
 
 Contributions are welcome.
 
-1. Fork the repository
-2. Create a feature branch
-   ```bash
-   git checkout -b feat/your-feature
-   ```
-3. Commit your changes
-4. Run tests and build locally
-   ```bash
-   npm run test
-   npm run build
-   ```
-5. Open a pull request
+- Fork the repository
+- Create a feature branch
+  ```bash
+  git checkout -b feat/your-feature
+  ```
+- Commit your changes
+- Run tests and build locally
+  ```bash
+  npm run test
+  npm run build
+  ```
+- Open a pull request
 
 ## License
 
@@ -211,5 +213,4 @@ If you plan to publish this project, add a `LICENSE` file (for example, MIT).
 
 Maintainer: Iuliia
 Repository owner: `izahnd`
-
 
