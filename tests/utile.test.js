@@ -1,4 +1,6 @@
+import * as React from 'react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { getRandomCard } from '../src/features/flashcards/utils/getRandomCard.js';
 import { flashcards } from '../src/features/flashcards/data/flashcards.js';
 import { FlashcardsEmptyState } from '../src/features/flashcards/components/FlashcardsEmptyState.jsx';
@@ -45,6 +47,26 @@ function flattenText(node) {
     : [node.props?.children];
 
   return children.map(flattenText).join(' ');
+}
+
+function findButtons(node, matches = []) {
+  if (!node || typeof node !== 'object') {
+    return matches;
+  }
+
+  if (node.type === 'button') {
+    matches.push(node);
+  }
+
+  const children = Array.isArray(node.props?.children)
+    ? node.props.children
+    : [node.props?.children];
+
+  for (const child of children) {
+    findButtons(child, matches);
+  }
+
+  return matches;
 }
 
 describe('getRandomCard', () => {
@@ -103,27 +125,75 @@ describe('FlashcardsEmptyState', () => {
 });
 
 describe('FlashcardsSession', () => {
-  it('renders card question, answer and total cards', () => {
+  it('renders card question, hides answer by default and shows total cards', () => {
+    const html = renderToStaticMarkup(
+      React.createElement(FlashcardsSession, {
+        currentCard: { question: 'What is JS?', answer: 'A language' },
+        totalCards: 10,
+        onNextCard: vi.fn(),
+      }),
+    );
+
+    expect(html).toContain('What is JS?');
+    expect(html).not.toContain('A language');
+    expect(html).toContain('Afficher la reponse');
+    expect(html).toContain('10');
+  });
+
+  it('reveals answer when reveal button is clicked', async () => {
+    vi.resetModules();
+    const setIsAnswerVisible = vi.fn();
+
+    vi.doMock('react', async () => {
+      const actual = await vi.importActual('react');
+      return {
+        ...actual,
+        useState: vi.fn(() => [false, setIsAnswerVisible]),
+        useEffect: vi.fn(),
+      };
+    });
+
+    const { FlashcardsSession } = await import(
+      '../src/features/flashcards/components/FlashcardsSession.jsx'
+    );
     const tree = FlashcardsSession({
       currentCard: { question: 'What is JS?', answer: 'A language' },
       totalCards: 10,
       onNextCard: vi.fn(),
     });
+    const revealButton = findButtons(tree).find((button) =>
+      flattenText(button).includes('Afficher la reponse'),
+    );
 
-    const text = flattenText(tree);
-    expect(text).toContain('What is JS?');
-    expect(text).toContain('A language');
-    expect(text).toContain('10');
+    revealButton.props.onClick();
+    expect(setIsAnswerVisible).toHaveBeenCalledWith(true);
   });
 
-  it('calls onNextCard from button click', () => {
+  it('calls onNextCard from button click', async () => {
+    vi.resetModules();
+    const setIsAnswerVisible = vi.fn();
+
+    vi.doMock('react', async () => {
+      const actual = await vi.importActual('react');
+      return {
+        ...actual,
+        useState: vi.fn(() => [false, setIsAnswerVisible]),
+        useEffect: vi.fn(),
+      };
+    });
+
+    const { FlashcardsSession } = await import(
+      '../src/features/flashcards/components/FlashcardsSession.jsx'
+    );
     const onNextCard = vi.fn();
     const tree = FlashcardsSession({
       currentCard: { question: 'Q', answer: 'A' },
       totalCards: 1,
       onNextCard,
     });
-    const button = findByType(tree, 'button');
+    const button = findButtons(tree).find((candidate) =>
+      flattenText(candidate).includes('Next Card'),
+    );
 
     button.props.onClick();
     expect(onNextCard).toHaveBeenCalledTimes(1);

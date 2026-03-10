@@ -1,9 +1,16 @@
+import { useEffect, useState } from 'react';
+
 export function FlashcardsSession({ currentCard, totalCards, onNextCard }) {
   /**
    * Affiche une session de flashcards avec la carte actuelle, le nombre total de cartes et un
    *  bouton pour passer à la carte suivante.
    */
-  
+  const [isAnswerVisible, setIsAnswerVisible] = useState(false);
+
+  useEffect(() => {
+    setIsAnswerVisible(false);
+  }, [currentCard]);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
@@ -27,9 +34,19 @@ export function FlashcardsSession({ currentCard, totalCards, onNextCard }) {
           <p className="mb-3 text-xs uppercase tracking-[0.3em] text-stone-500">
             Reponse
           </p>
-          <p className="text-lg leading-8 text-stone-200">
-            {currentCard.answer}
-          </p>
+          {isAnswerVisible ? (
+            <p className="text-lg leading-8 text-stone-200">
+              {currentCard.answer}
+            </p>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsAnswerVisible(true)}
+              className="inline-flex items-center justify-center rounded-full border border-amber-300/40 px-4 py-2 text-sm font-semibold text-amber-200 transition hover:border-amber-200 hover:text-amber-100"
+            >
+              Afficher la reponse
+            </button>
+          )}
         </article>
       </div>
 
